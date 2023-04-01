@@ -1,0 +1,7 @@
+## Interface: 30300
+## Title: Aura Helper
+## Notes: Provides an additional information about paladin's auras for player.
+## Author: Dancher
+## Version: 1.0
+## SavedVariables: AuraHelper
+## X-Website: https://github.com/dancher743/aura-helper
