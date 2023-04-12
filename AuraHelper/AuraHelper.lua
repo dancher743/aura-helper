@@ -76,7 +76,8 @@ function ShowSpellSources(spellName)
 		n=n+1
 		keyset[n]=k
 	end
-	AuraHelper_Log(spellName..": "..table.concat(keyset, ", "));
+	local player_names = table.concat(keyset, ", ")
+	GameTooltip:AddLine(player_names, 1, 1, 1);
 end
 
 function IsInGroup()
