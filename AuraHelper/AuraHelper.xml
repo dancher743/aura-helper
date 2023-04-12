@@ -3,11 +3,18 @@
 	<Frame name="AuraHelperFrame">
 		<Scripts>
 			<OnLoad>
-				AuraHelper_OnLoad(self);
+			AuraHelper_OnLoad(self);
 			</OnLoad>
 			<OnEvent>
-				AuraHelper_OnEvent(self, event, ...);
+			AuraHelper_OnEvent(self, event, ...);
 			</OnEvent>
+		</Scripts>
+	</Frame>
+	<Frame name="GameTooltip" parent="GameTooltip">
+		<Scripts>
+			<OnLoad>
+			AuraHelper_GameTooltip_OnLoad();
+			</OnLoad>
 		</Scripts>
 	</Frame>
 </Ui>
