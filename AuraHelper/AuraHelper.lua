@@ -15,9 +15,15 @@ end
 
 function AuraHelper_GameTooltip_OnLoad(self)	
 	GameTooltip:HookScript("OnTooltipSetSpell", function(self)
-		local name, rank, id = self:GetSpell()
-		if IsPaladinAura(id) then
-			AuraHelper_Log(name)
+		local spellName, spellRank, spellId = self:GetSpell()
+		if IsPaladinAura(spellId) then
+			ShowSpellSource(spellName)
 		end
     end)
+end
+
+function ShowSpellSource(spellName)
+	local spellSource = select(8,UnitBuff("player", spellName));
+	local unitName = UnitName(spellSource)
+	AuraHelper_Log(spellName..": "..unitName);
 end
