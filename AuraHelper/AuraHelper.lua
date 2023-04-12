@@ -17,13 +17,72 @@ function AuraHelper_GameTooltip_OnLoad(self)
 	GameTooltip:HookScript("OnTooltipSetSpell", function(self)
 		local spellName, spellRank, spellId = self:GetSpell()
 		if IsPaladinAura(spellId) then
-			ShowSpellSource(spellName)
+			ShowSpellSources(spellName)
 		end
     end)
 end
 
-function ShowSpellSource(spellName)
-	local spellSource = select(8,UnitBuff("player", spellName));
+function ShowSpellSources(spellName)
+	local players = {}
+	
+	-- Player only
+	local spellSource = select(8,UnitAura("player", spellName));
 	local unitName = UnitName(spellSource)
-	AuraHelper_Log(spellName..": "..unitName);
+	players[unitName] = spellName
+	
+	if IsInGroup() then
+		-- Group
+		for i = 1, 4 do
+			local spellSource = select(8,UnitAura("party"..i, spellName));
+			if spellSource then
+				local unitName = UnitName(spellSource)
+				if players[unitName] == nil then
+					players[unitName] = spellName
+				end
+			end
+		end
+	end
+	
+	if IsInRaid() then
+		-- Raid
+		for i = 1, 40 do
+			local spellSource = select(8,UnitAura("raid"..i, spellName));
+			if spellSource then
+				local unitName = UnitName(spellSource)
+				if players[unitName] == nil then
+					players[unitName] = spellName
+				end
+			end
+		end
+	end
+	
+	if IsActiveBattlefieldArena() then
+		-- Arena
+		for i = 1, 5 do
+			local spellSource = select(8,UnitAura("arena"..i, spellName));
+			if spellSource then
+				local unitName = UnitName(spellSource)
+				if players[unitName] == nil then
+					players[unitName] = spellName
+				end
+			end
+		end
+	end
+	
+	-- Print
+	local keyset={}
+	local n=0
+	for k,v in pairs(players) do
+		n=n+1
+		keyset[n]=k
+	end
+	AuraHelper_Log(spellName..": "..table.concat(keyset, ", "));
+end
+
+function IsInGroup()
+	return GetNumPartyMembers() > 0 or GetNumRaidMembers() > 0
+end
+
+function IsInRaid()
+	return GetNumRaidMembers() > 0
 end
