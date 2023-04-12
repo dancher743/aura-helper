@@ -5,3 +5,4 @@
 ## Version: 1.0
 ## SavedVariables: AuraHelper
 ## X-Website: https://github.com/dancher743/aura-helper
+AuraHelper.xml
