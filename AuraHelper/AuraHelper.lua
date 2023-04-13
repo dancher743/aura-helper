@@ -20,11 +20,11 @@ end
 function OnTooltipSetSpell(tooltip)
 	local spellName, spellRank, spellId = tooltip:GetSpell()
 	if paladinAuraIDs[spellId] then
-		ShowSpellUnitsOnTooltip(spellName, tooltip)
+		AddSpellUnitsInTooltip(spellName, tooltip)
 	end
 end
 
-function ShowSpellUnitsOnTooltip(spellName, tooltip)
+function AddSpellUnitsInTooltip(spellName, tooltip)
 	local units = {}
 	
 	GetUnitBySpell("player", spellName, units)
