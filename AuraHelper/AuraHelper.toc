@@ -1,6 +1,6 @@
 ## Interface: 30300
 ## Title: Aura Helper
-## Notes: Provides an additional information about paladin's auras for player.
+## Notes: Provides an information for player about who's using paladin auras in the tooltip.
 ## Author: Dancher
 ## Version: 1.0
 ## SavedVariables: AuraHelper
