@@ -3,7 +3,7 @@ Addon for World of Warcraft: Wrath of the Lich King 3.3.5a. Provides an informat
 
 Install
 ---
-Place `Aura Helper` into the game folder `Interface\AddOns`.
+Place folder `AuraHelper` into the game folder `\Interface\AddOns`.
 
 Screenshots
 ---
