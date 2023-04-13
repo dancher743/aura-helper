@@ -1,0 +1,10 @@
+## Interface: 30300
+## Title: Aura Helper
+## Notes: Provides an information for player about who's using paladin auras in the tooltip.
+## Author: Dancher
+## Version: 1.0
+## SavedVariables: AuraHelper
+## X-Website: https://github.com/dancher743/aura-helper
+Data.lua
+AuraHelper.lua
+AuraHelper.xml
