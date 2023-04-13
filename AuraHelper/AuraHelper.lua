@@ -46,6 +46,10 @@ function ShowSpellUnitsOnTooltip(spellName, tooltip)
 		unit_names[#unit_names+1]=name
 	end
 	
+	if #unit_names == 0 then
+		return
+	end
+	
 	local r,g,b = 1,1,1 -- white color
 	if #unit_names > 1 then
 		r,g,b = 1,0.2,0.2 -- red color
