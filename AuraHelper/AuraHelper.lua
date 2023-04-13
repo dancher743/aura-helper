@@ -10,78 +10,65 @@ function AuraHelper_OnLoad(self)
 end
 
 function AuraHelper_Log(message)
-	DEFAULT_CHAT_FRAME:AddMessage(message);
+	DEFAULT_CHAT_FRAME:AddMessage(tostring(message));
 end
 
 function AuraHelper_GameTooltip_OnLoad(self)	
-	GameTooltip:HookScript("OnTooltipSetSpell", function(self)
-		local spellName, spellRank, spellId = self:GetSpell()
-		if IsPaladinAura(spellId) then
-			ShowSpellSources(spellName)
-		end
-    end)
+	GameTooltip:HookScript("OnTooltipSetSpell", OnTooltipSetSpell)
 end
 
-function ShowSpellSources(spellName)
-	local players = {}
+function OnTooltipSetSpell(tooltip)
+	local spellName, spellRank, spellId = tooltip:GetSpell()
+	if paladinAuraIDs[spellId] then
+		ShowSpellUnitsOnTooltip(spellName, tooltip)
+	end
+end
+
+function ShowSpellUnitsOnTooltip(spellName, tooltip)
+	local units = {}
 	
-	-- Player only
-	local spellSource = select(8,UnitAura("player", spellName));
-	local unitName = UnitName(spellSource)
-	players[unitName] = spellName
+	GetUnitBySpell("player", spellName, units)
 	
 	if IsInGroup() then
-		-- Group
-		for i = 1, 4 do
-			local spellSource = select(8,UnitAura("party"..i, spellName));
-			if spellSource then
-				local unitName = UnitName(spellSource)
-				if players[unitName] == nil then
-					players[unitName] = spellName
-				end
-			end
-		end
+		GetUnitsBySpell("party", 4, spellName, units)
 	end
 	
 	if IsInRaid() then
-		-- Raid
-		for i = 1, 40 do
-			local spellSource = select(8,UnitAura("raid"..i, spellName));
-			if spellSource then
-				local unitName = UnitName(spellSource)
-				if players[unitName] == nil then
-					players[unitName] = spellName
-				end
-			end
-		end
+		GetUnitsBySpell("raid", 40, spellName, units)
 	end
 	
 	if IsActiveBattlefieldArena() then
-		-- Arena
-		for i = 1, 5 do
-			local spellSource = select(8,UnitAura("arena"..i, spellName));
-			if spellSource then
-				local unitName = UnitName(spellSource)
-				if players[unitName] == nil then
-					players[unitName] = spellName
-				end
-			end
-		end
+		GetUnitsBySpell("arena", 5, spellName, units)
 	end
 	
-	-- Print
-	local keyset={}
-	local n=0
-	for k,v in pairs(players) do
-		n=n+1
-		keyset[n]=k
+	local unit_names={}	
+	for name,spellId in pairs(units) do
+		unit_names[#unit_names+1]=name
 	end
-	local r,g,b = 1,1,1
-	if #keyset > 1 then
-		r,g,b = 1,0.15,0.15
+	
+	local r,g,b = 1,1,1 -- white color
+	if #unit_names > 1 then
+		r,g,b = 1,0.2,0.2 -- red color
 	end
-	local player_names = table.concat(keyset, ", ")
-	GameTooltip:AddLine(player_names, r, g, b, true);
+	
+	unit_names = table.concat(unit_names, ", ")
+	tooltip:AddLine(unit_names, r, g, b, true);
+end
+
+function GetUnitBySpell(unitId, spellName, units)
+	local spellSource = select(8,UnitAura(unitId, spellName))
+	if spellSource then
+		local unitName = UnitName(spellSource)
+		if units[unitName] == nil then
+			units[unitName] = spellName
+		end
+	end
+end
+
+function GetUnitsBySpell(unitId, count, spellName, units)
+	for i = 1, count do
+		GetUnitBySpell(unitId..i, spellName, units)
+	end
 end
 
 function IsInGroup()
