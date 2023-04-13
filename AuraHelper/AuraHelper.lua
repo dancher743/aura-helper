@@ -76,8 +76,12 @@ function ShowSpellSources(spellName)
 		n=n+1
 		keyset[n]=k
 	end
+	local r,g,b = 1,1,1
+	if #keyset > 1 then
+		r,g,b = 1,0.15,0.15
+	end
 	local player_names = table.concat(keyset, ", ")
-	GameTooltip:AddLine(player_names, 1, 1, 1);
+	GameTooltip:AddLine(player_names, r, g, b, true);
 end
 
 function IsInGroup()
