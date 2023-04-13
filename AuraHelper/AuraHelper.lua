@@ -9,12 +9,12 @@ function AuraHelper_OnLoad(self)
 	AuraHelper_Log((greetings_message):format(version));	
 end
 
-function AuraHelper_Log(message)
-	DEFAULT_CHAT_FRAME:AddMessage(tostring(message));
-end
-
 function AuraHelper_GameTooltip_OnLoad(self)	
 	GameTooltip:HookScript("OnTooltipSetSpell", OnTooltipSetSpell)
+end
+
+function AuraHelper_Log(message)
+	DEFAULT_CHAT_FRAME:AddMessage(tostring(message));
 end
 
 function OnTooltipSetSpell(tooltip)
