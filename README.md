@@ -8,4 +8,4 @@ Place folder `AuraHelper` into the game folder `\Interface\AddOns`.
 Screenshots
 ---
 [![5.png](https://i.postimg.cc/7Y1FjwJr/5.png)](https://postimg.cc/3dRfvMZt)
-[![6.png](https://i.postimg.cc/D0vrZr6g/6.png)](https://postimg.cc/Fd6dCJ2d)
+[![7.png](https://i.postimg.cc/FK4TjLsM/7.png)](https://postimg.cc/68MVKTZc)
